@@ -1,0 +1,82 @@
+
+http://richzhang.github.io/colorization/
+
+Input : grayscale
+Output : a plausible coloring scheme
+Procedure : Fully automated
+
+Color model : CIE Lab
+
+
+Problem
+Earlier approaches - desaturated colorization, else needed user input (why / how?).
+
+Approach
+Objective / Loss function tailored to this problem
+re-weight the loss at training time to emphasize rare colors
+predict a distribution of possible colors for each pixel
+final colorization by taking the annealed-mean of the distribution
+
+Details
+CNN -> probability distribution over quantized color values for each pixel
+Classification, re-balanced for rare colors
+
+
+Evaluation
+Manual judgement - Turing test
+
+Secondary contribution
+We introduce the colorization task as a competitive and straightforward method for self-supervised representation, achieving state-of-the-art results on several benchmarks.
+representation learning = feature learning
+
+
+Related Work
+
+Non-Parametric methods
+	manual or automated identification of color reference images
+	image analogies framework used to transfer color from analogous regions of ref image
+
+Parametric methods
+	learn from batch data at training time
+	regression - continuous color space
+	classification - quantized color values
+
+
+Concurrent Work
+Larsson al. [23] and Iizuka et al. [24] have developed similar systems, which leverage large-scale data and CNNs.
+Iizuka - Regression
+Larsson - Classification, unbalanced
+
+
+
+Non-Parametric
+
+18. Welsh,  T.,  Ashikhmin,  M.,  Mueller,  K.:   Transferring  color  to  greyscale  images.
+ACM Transactions on Graphics (TOG) 21(3) (2002) 277–280
+
+19.  Gupta, R.K., Chia, A.Y.S., Rajan, D., Ng, E.S., Zhiyong, H.:  Image colorization using similar images.
+In: Proceedings of the 20th ACM international conference on Multimedia, ACM (2012) 369–378
+
+20.  Liu, X., Wan, L., Qu, Y., Wong, T.T., Lin, S., Leung, C.S., Heng, P.A.:  Intrinsic colorization. 
+In: ACM Transactions on Graphics (TOG). Volume 27., ACM (2008)
+
+21.  Chia, A.Y.S., Zhuo, S., Gupta, R.K., Tai, Y.W., Cho, S.Y., Tan, P., Lin, S.: Semantic colorization with internet images.  
+In: ACM Transactions on Graphics (TOG). Volume 30., ACM (2011)
+
+
+Parametric
+
+Regression
+
+22.  Deshpande, A., Rock, J., Forsyth, D.:  Learning large-scale automatic image col-
+orization.   In:  Proceedings  of  the  IEEE  International  Conference  on  Computer
+Vision. (2015) 567–575
+
+1.  Cheng, Z., Yang, Q., Sheng, B.:  Deep colorization.  In: Proceedings of the IEEE
+International Conference on Computer Vision. (2015) 415–423
+
+2.  Dahl, R.:  Automatic colorization.  In: http://tinyclouds.org/colorize/. (2016)
+
+Clssification
+3.  Charpiat, G., Hofmann, M., Sch ̈olkopf, B.: Automatic image colorization via mul-
+timodal predictions.  In: Computer Vision–ECCV 2008.  Springer (2008) 126–139

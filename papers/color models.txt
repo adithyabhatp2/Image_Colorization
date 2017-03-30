@@ -1,0 +1,31 @@
+
+Terms
+	Hue="the quality by which we distinguish one color from another."="the color itself."
+	Saturation=Chroma="the quality that distinguishes the difference from a pure hue to a gray shade."="the degree to which the hue differs from a neutral gray."
+	Lightness=Brightness="indicates the level of illumination."
+	Value="the quality by which we distinguish a light color from a dark one."
+	Gamut=Range
+
+
+RGB
+	Relates very closely to the way we perceive color with the r g b receptors in our retinas
+CMY
+	Cyan, Magenta, Yellow
+
+
+Both models fall short of reproducing all the colors we can see. Furthermore, they differ to such an extent that there are many RGB colors that cannot be produced using CMY(K), and similarly, there are some CMY colors that cannot be produced using RGB.
+In RGB, CMY or XYZ lightness depends on relative amounts of the three color channels.
+
+
+
+HSB / HLS / LCH
+	H : 0-360 degrees
+	S : 0-100%
+	L/B : 0-100%
+
+CIE Lab
+CIE Luv
+
+	L : 0-100
+
+device independent
