@@ -1,0 +1,26 @@
+
+https://pdfs.semanticscholar.org/5c6a/0a8d993edf86846ac7c6be335fba244a59f8.pdf
+
+Input : grayscale
+Output : a plausible coloring scheme
+Procedure : Fully automated
+
+Color model : CIE Lab
+
+Dataset:
+    Places scene dataset [Zhou et al. 2014], which consists of 2,448,872 training images and 20,500 validation images
+    http://papers.nips.cc/paper/5349-learning-deep-features-for-scene-recognition-using-places-database.pdf
+
+Approach
+    Learn global features such as indoor/outdoor, day/night using a CNN
+    Learn local features using another CNN
+    Combine the two and learn colors using another CNN
+
+    Eucledian distance used as error
+
+    If labels available for images such as abbey, conference center, or volcano - include them in training global features
+
+
+
+Secondary contribution
+    Style transfer
