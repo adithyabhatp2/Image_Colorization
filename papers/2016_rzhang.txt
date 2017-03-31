@@ -19,8 +19,20 @@ final colorization by taking the annealed-mean of the distribution
 
 Details
 CNN -> probability distribution over quantized color values for each pixel
-Classification, re-balanced for rare colors
+CIE Lab color space - distances here model percuptual distances
+L - given
+a,b - ranges usually -100 to +100 or 8 bit.. Binned into 10x10
+Out of 400 - 656 possible values, 313 are in range/gamut (visible/possible) = Q.
+Hence, output = z = H*W*Q probability distribution
+Convert this to actual color values y - annealed mean
 
+Error
+Convert ground truth colors Y to a probability distribution Z. 
+Soft conversion - 5 nearest neighbors, value = Gaussian kernel with sigma=5 around ground truth bin.
+Use multi-nomial cross entropy loss. 
+Essentially, (-plogp), with weights for rebalancing rare colors.
+Re-balanced for rare colors.
+	For each bin, based on 1.3M dataset, compute emnpirical rarity of each bin, weight inverse to it.
 
 Evaluation
 Manual judgement - Turing test
