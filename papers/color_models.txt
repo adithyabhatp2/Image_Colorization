@@ -18,7 +18,7 @@ In RGB, CMY or XYZ lightness depends on relative amounts of the three color chan
 
 
 
-HSB / HLS / LCH
+HSB / HLS / LCH / HSV?
 	H : 0-360 degrees
 	S : 0-100%
 	L/B : 0-100%
