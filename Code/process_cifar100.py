@@ -33,5 +33,5 @@ X_train = X_train_lab
 X_test = X_test_lab
 
 data = (X_train, X_test)
-with open('cifar100_large_natural_outdoor_scenes.pickle', 'wb') as fp:
+with open('../cifar100/cifar100_large_natural_outdoor_scenes.pickle', 'wb') as fp:
     cPickle.dump(data, fp)
