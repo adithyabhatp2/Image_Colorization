@@ -7,6 +7,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.layers import Activation, Flatten, Dense, Reshape
 
 from keras.activations import softmax
+from keras.optimizers import Adam
 
 import functools
 softmax3 = functools.partial(softmax, axis = 3)
@@ -171,14 +172,15 @@ def build_model():
 
 
     #### Softmax
-    model.add(Convolution2D(313, (1, 1)))
+    model.add(Convolution2D(484, (1, 1)))
     model.add(Activation(softmax3))
 
     ## Loss
-    model.compile(loss = custom_loss, optimizer = 'adam')
+    model.compile(loss = custom_loss, optimizer = Adam(decay = 0.001))
 
     return model
 
 
-model = build_model()
-print model.output_shape
+if __name__ == '__main__':
+    model = build_model()
+    print model.output_shape

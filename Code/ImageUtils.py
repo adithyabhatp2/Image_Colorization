@@ -22,7 +22,7 @@ def displayImage(image):
 
 
 def readColorImageFromFile(filePath, as_grey=False):
-    return skimage.img_as_float(imread(fname=imagePath, as_grey=as_grey))
+    return skimage.img_as_float(imread(fname=filePath, as_grey=as_grey))
 
 
 def readColorImageFromUrl(url, as_grey=False):
