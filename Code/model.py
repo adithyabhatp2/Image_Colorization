@@ -11,6 +11,8 @@ from keras.layers import Convolution2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
 from keras.layers import Activation, Flatten, Dense, Reshape
 
+import ImageUtils as myutils
+
 nb_epoch = 5
 
 with open('../cifar100/cifar100_large_natural_outdoor_scenes.pickle', 'rb') as fp:
