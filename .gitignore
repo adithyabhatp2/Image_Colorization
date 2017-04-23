@@ -1,3 +1,6 @@
+# CIFAR100 Dataset - Run Code/process_cifar100.py to generate it
+cifar100/cifar100_large_natural_outdoor_scenes.pickle
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
