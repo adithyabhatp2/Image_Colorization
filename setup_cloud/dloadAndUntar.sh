@@ -14,12 +14,37 @@ n7=n09409752_ridge_1489
 srcGrp=nature_hilly
 
 mkdir -p $srcGrp
+mkdir -p tars_${srcGrp}
 
 for n in $n1 $n2 $n3 $n4 $n5 $n6 $n7
 do
-        mkdir -p $n
+        mkdir -p ${srcGrp}/$n
         wget ${loc}${n}.tar
-        tar -xvf ${n}.tar -C $n
-        mv ${n}.tar ${srcGrp}/
+        tar -xvf ${n}.tar -C ${srcGrp}/$n
+        mv ${n}.tar tars_${srcGrp}/
 done
+
+
+n1=n00433661_outdoorsport_1351
+n2=n00439826_trackandfield_1849
+n3=n00467719_sport_athleticgame_outdoorgame_fieldgame_1430
+n4=n00523513_sport_1888
+n5=n07942152_people_1432
+n6=n09903153_celebrity_1316
+n7=n10450303_politician_706
+
+srcGrp=pplAndSports
+
+mkdir -p $srcGrp
+
+for n in $n1 $n2 $n3 $n4 $n5 $n6 $n7
+do
+        mkdir -p ${srcGrp}/$n
+        wget ${loc}${n}.tar
+        tar -xvf ${n}.tar -C ${srcGrp}/$n
+        mv ${n}.tar tars_${srcGrp}/
+done
+
+
+
 

@@ -1,34 +1,49 @@
 import ImageUtils as myutils
 from skimage import color
-from os import listdir
+import os
+import numpy as np
 
 BIN_LENGTH = 10
 BIN_CENTERS = np.array(range(-105, 106, BIN_LENGTH))
 BIN_EDGES = (BIN_CENTERS[:-1] + BIN_CENTERS[1:]) / 2
 NUM_BINS = len(BIN_EDGES) + 1
 
-def get_lab(image_path, l_size, ab_size):
-    image = myutils.readColorImageFromFile(image_path)
-    image_lab = color.rgb2lab(image)
+IMG_HEIGHT = 224
+IMG_WIDTH = 224
 
-    l = resizeImage(image, l_size, l_size)
-    ab = resizeImage(image[:, :, 1:], ab_size, ab_size)
+
+
+def get_lab(image):
+    '''
+
+    :param image: 224x224 scaled image
+    :return:
+    '''
+
+    image_lab = color.rgb2lab(image)
+    # l = myutils.resizeImage(image, l_size, l_size)
+    # ab = myutils.resizeImage(image[:, :, 1:], ab_size, ab_size)
+
+    l = image_lab[:, :, 0]
+    ab = image_lab[:, :, 1:]
 
     return l, ab
 
-# /home/adithya_bhatp/images/n00467719_sport_athleticgame_outdoorgame_fieldgame_1430/n00467719_7006.JPEG
-# l_size > ab_size
-def create_dataset(dir_path, l_size, ab_size):
-    file_list = listdir('dir_path')
+
+def create_dataset(dir_path):
+    file_list = os.listdir('dir_path')
 
     num_images = len(file_list)
-    
-    l_channel = np.zeros((num_images, l_size, l_size, 1))
-    ab_channels = np.zeros((num_images, ab_size, ab_size, 2))
+
+    l_channel = np.zeros((num_images, IMG_HEIGHT, IMG_WIDTH, 1))
+    ab_channels = np.zeros((num_images, IMG_HEIGHT, IMG_WIDTH, 2))
+
+    l_channel_2 = []
+    # ref : https://docs.scipy.org/doc/numpy/reference/generated/numpy.stack.html#numpy.stack
 
     for i, f in enumerate(file_list):
-        image_path = dir_path + "/" + f
-        l, ab = get_lab(image_path, l_size, ab_size)
+        image_path = os.path.join(dir_path, f)
+        l, ab = get_lab(image_path)
 
         l_channel[i] = l
         ab_channels[i] = ab
@@ -65,3 +80,47 @@ def decode_ab(one_hot):
 
                 ab_channels[n, i, j, 0] = BIN_CENTERS[a_index]
                 ab_channels[n, i, j, 1] = BIN_CENTERS[b_index]
+
+
+
+def checkLabLimitsFloat():
+    # 000, 001, 010, 011
+    # 100, 101, 110, 111
+    # Ref http://colorizer.org/
+    r = np.ones((16, 16))
+    g = np.zeros((16, 16))
+    b = np.ones((16, 16))
+    temp = np.array(zip(r, g, b))
+    print temp.shape
+    rgb = np.swapaxes(temp, 1, 2)
+    print rgb.shape
+
+    print('RGB:\n{}'.format(rgb[0, :2]))
+    lab = color.rgb2lab(rgb)
+    print('LAB:\n{}'.format(lab[0, :2]))
+    rgb1 = color.lab2rgb(lab)
+    print('RGB1:\n{}'.format(rgb[0, :2]))
+
+    # l extremes 0 to +100 - 000, 111
+    # a extreme -86 to +98 - 010, 101
+    # b extreme val -108 to 95 - 011
+
+
+if __name__=='__main__':
+    TRAIN_DIR = '/u/a/d/adbhat/images/nature_hilly/train_temp'
+    VAL_DIR = '/u/a/d/adbhat/images/nature_hilly/val'
+    TEST_DIR = '/u/a/d/adbhat/images/nature_hilly/test'
+
+    imagePath = os.path.join(TRAIN_DIR, 'n09246464_86.JPEG')
+
+    original_image = myutils.readColorImageFromFile(imagePath)
+    image = myutils.resizeImage(original_image, IMG_HEIGHT, IMG_WIDTH)
+
+    l, ab = get_lab(image)
+
+    print('Min L: {}\nMin A: {}\nMin B: {}'.format(np.amin(l), np.amin(ab[:,:,0]), np.amin(ab[:,:,1])))
+    print('Max L: {}\nMax A: {}\nMax B: {}'.format(np.amax(l), np.amax(ab[:, :, 0]), np.amax(ab[:, :, 1])))
+
+
+
+    print 'Done'

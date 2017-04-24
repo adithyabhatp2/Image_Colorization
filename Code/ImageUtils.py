@@ -11,6 +11,13 @@ import numpy as np
 
 
 def resizeImage(image, new_height, new_width):
+    """
+    Assumes channels_last keras encoding - tensorflow default.
+    :param image:
+    :param new_height:
+    :param new_width:
+    :return: resized image with the same number of channels.
+    """
     # shape returns height, width, channels
     resized = skimage.transform.resize(image=image, output_shape=(new_height, new_width, image.shape[2]))
     return resized
