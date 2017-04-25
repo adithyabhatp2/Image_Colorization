@@ -23,7 +23,7 @@ def get_lab(image):
 
 
 def create_dataset(dir_path, l_size, ab_size):
-    file_list = os.listdir('dir_path')
+    file_list = os.listdir(dir_path)
 
     num_images = len(file_list)
 
@@ -44,7 +44,9 @@ def create_dataset(dir_path, l_size, ab_size):
 
 def get_lab_resized(image_path, l_size, ab_size):
     image = myutils.readColorImageFromFile(image_path)
-    l, ab = get_lab(image)
+    image_lab = color.rgb2lab(image)
+    l = image_lab[:, :, 0:1]
+    ab = image_lab[:, :, 1:]
 
     l = myutils.resizeImage(l, l_size, l_size)
     ab = myutils.resizeImage(ab, ab_size, ab_size)

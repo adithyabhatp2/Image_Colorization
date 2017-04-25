@@ -9,6 +9,19 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
+import os
+
+def cleanup_dir(dir_path):
+    file_list = os.listdir(dir_path)
+
+    for f in file_list:
+        image_path = os.path.join(dir_path, f)
+        image = readColorImageFromFile(image_path)
+
+        if image.ndim != 3:
+            os.system('rm -f {0}'.format(image_path))
+
+
 
 def resizeImage(image, new_height, new_width):
     """

@@ -11,10 +11,11 @@ from keras.optimizers import Adam
 
 import functools
 softmax3 = functools.partial(softmax, axis = 3)
-
+softmax3.__name__ = 'softmax3'
 
 def custom_loss(y_true, y_pred):
-    return K.sum(y_true * K.log(y_pred))
+    y_pred_clipped = K.clip(y_pred, K.epsilon(), None)
+    return -K.sum(y_true * K.log(y_pred_clipped))
 
 
 # TODO: upgrade keras using:
