@@ -14,15 +14,7 @@ IMG_WIDTH = 224
 
 
 def get_lab(image):
-    '''
-
-    :param image: 224x224 scaled image
-    :return:
-    '''
-
     image_lab = color.rgb2lab(image)
-    # l = myutils.resizeImage(image, l_size, l_size)
-    # ab = myutils.resizeImage(image[:, :, 1:], ab_size, ab_size)
 
     l = image_lab[:, :, 0]
     ab = image_lab[:, :, 1:]
@@ -30,28 +22,37 @@ def get_lab(image):
     return l, ab
 
 
-def create_dataset(dir_path):
+def create_dataset(dir_path, l_size, ab_size):
     file_list = os.listdir('dir_path')
 
     num_images = len(file_list)
 
-    l_channel = np.zeros((num_images, IMG_HEIGHT, IMG_WIDTH, 1))
-    ab_channels = np.zeros((num_images, IMG_HEIGHT, IMG_WIDTH, 2))
-
-    l_channel_2 = []
-    # ref : https://docs.scipy.org/doc/numpy/reference/generated/numpy.stack.html#numpy.stack
+    l_channel = np.zeros((num_images, l_size, l_size, 1))
+    ab_channels = np.zeros((num_images, ab_size, ab_size, 2))
 
     for i, f in enumerate(file_list):
         image_path = os.path.join(dir_path, f)
-        l, ab = get_lab(image_path)
+        
+        l, ab = get_lab_resized(image_path, l_size, ab_size)
 
         l_channel[i] = l
         ab_channels[i] = ab
 
-    return l_channel, ab_channels
+    one_hot = encode_ab(ab_channels)
+    return l_channel, one_hot
 
 
-# TODO: there is probably a faster way to do this instead of looping
+def get_lab_resized(image_path, l_size, ab_size):
+    image = myutils.readColorImageFromFile(image_path)
+    l, ab = get_lab(image)
+
+    l = myutils.resizeImage(l, l_size, l_size)
+    ab = myutils.resizeImage(ab, ab_size, ab_size)
+
+    return l, ab
+
+
+# TODO: there is probably a faster way to do this than looping
 def encode_ab(ab_channels):
     one_hot = np.zeros((ab_channels.shape[0], ab_channels.shape[1], ab_channels.shape[2], NUM_BINS * NUM_BINS))
 
