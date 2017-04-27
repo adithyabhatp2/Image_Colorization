@@ -24,7 +24,7 @@ def get_lab_resized(image_path, l_size, ab_size):
     return l, ab
 
 
-def create_datset_v2(dir_path, l_size, ab_size):
+def create_dataset_v2(dir_path, l_size, ab_size):
     file_list = os.listdir(dir_path)
     num_images = len(file_list)
 
@@ -57,7 +57,7 @@ def create_datset_v2(dir_path, l_size, ab_size):
     ab_onehot, ab_bin_frequencies = encode_ab(ab_channels)
 
     if debugLevel <= 2:
-        print('create_datset_v2 : valid 3d images : l_channels shape: {}\tab_channels shape:{}\tab_channels after one-hot shape: {}'.format(l_channel.shape, ab_channels.shape, ab_onehot.shape))
+        print('create_datset_v2 : valid 3d images : l_channels shape: {}\nab_channels shape:{}\nab_channels after one-hot shape: {}'.format(l_channel.shape, ab_channels.shape, ab_onehot.shape))
 
     return l_channel, ab_onehot, ab_bin_frequencies
 
@@ -164,7 +164,7 @@ if __name__ == '__main__':
     IMG_WIDTH = 224
     AB_SIZE = 28
 
-    l_channels, ab_channels_onehot, ab_bin_frequencies = create_datset_v2(TRAIN_DIR, IMG_HEIGHT, AB_SIZE)
+    l_channels, ab_channels_onehot, ab_bin_frequencies = create_dataset_v2(TRAIN_DIR, IMG_HEIGHT, AB_SIZE)
 
     # # Test Reconstruction
     # ab_channels = decode_ab(ab_channels_onehot)
@@ -176,7 +176,7 @@ if __name__ == '__main__':
     # myutils.displayListOfImagesInGrid(reconstructed_rgb_imgs)
 
     # Test ab_bin_frequencies
-    print('A-B bin frequencies\nLength: {}\nNon-Zero: {}\nSum: {}\nExpected: {}\n'.format(len(ab_bin_frequencies), np.count_nonzero(ab_bin_frequencies), sum(ab_bin_frequencies), 8 * AB_SIZE * AB_SIZE))
+    print('A-B bin frequencies\nLength: {}\tNon-Zero: {}\nSum: {}\nExpected: {}\t'.format(len(ab_bin_frequencies), np.count_nonzero(ab_bin_frequencies), sum(ab_bin_frequencies), 8 * AB_SIZE * AB_SIZE))
     print('Counts: \n{}'.format(ab_bin_frequencies))
 
     print 'Done'

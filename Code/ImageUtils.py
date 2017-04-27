@@ -74,6 +74,9 @@ def convertImageToGrayRGB(image):
     return skimage.color.gray2rgb(skimage.color.rgb2grey(image))
 
 
+def convertLabToRgb(image):
+    return skimage.color.lab2rgb(image)
+
 def displayListOfImagesInGrid(imageList, pairUp=False):
     numImages = len(imageList)
     numCols = int(math.ceil(math.sqrt(numImages)))
@@ -94,6 +97,7 @@ def displayListOfImagesInGrid(imageList, pairUp=False):
 
             subplotNum += 1
             img_index = subplotNum - 1
+            # TODO:pairUp is prolly messed up.
 
             if img_index >= numImages:
                 break
