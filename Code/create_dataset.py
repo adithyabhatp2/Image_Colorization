@@ -146,9 +146,9 @@ def checkLabLimitsFloat():
 
 
 if __name__ == '__main__':
-    TRAIN_DIR = '/u/a/d/adbhat/images/nature_hilly/train_temp'
-    VAL_DIR = '/u/a/d/adbhat/images/nature_hilly/val'
-    TEST_DIR = '/u/a/d/adbhat/images/nature_hilly/test'
+    # TRAIN_DIR = '/u/a/d/adbhat/images/nature_hilly/train_temp'
+    # VAL_DIR = '/u/a/d/adbhat/images/nature_hilly/val'
+    # TEST_DIR = '/u/a/d/adbhat/images/nature_hilly/test'
 
     # imagePath = os.path.join(TRAIN_DIR, 'n09246464_86.JPEG')
     #
@@ -160,9 +160,11 @@ if __name__ == '__main__':
     # print('Min L: {}\nMin A: {}\nMin B: {}'.format(np.amin(l), np.amin(ab[:,:,0]), np.amin(ab[:,:,1])))
     # print('Max L: {}\nMax A: {}\nMax B: {}'.format(np.amax(l), np.amax(ab[:, :, 0]), np.amax(ab[:, :, 1])))
 
+
+    TRAIN_DIR = '/home/adithya_bhatp/images/nature_hilly/train'
     IMG_HEIGHT = 224
     IMG_WIDTH = 224
-    AB_SIZE = 28
+    AB_SIZE = 56
 
     l_channels, ab_channels_onehot, ab_bin_frequencies = create_dataset_v2(TRAIN_DIR, IMG_HEIGHT, AB_SIZE)
 

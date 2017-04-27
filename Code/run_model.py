@@ -9,6 +9,7 @@ if __name__ == '__main__':
 
     keras.activations.softmax3 = rzhang_model.softmax3
     keras.losses.custom_loss = rzhang_model.custom_loss
+    keras.losses.custom_loss_rebalancing = rzhang_model.custom_loss_rebalancing
 
     L_SIZE = 224
     AB_SIZE = 14
