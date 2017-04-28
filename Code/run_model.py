@@ -14,8 +14,8 @@ if __name__ == '__main__':
     L_SIZE = 224
     AB_SIZE = 14
 
-    # model = rzhang_model.build_model()
-    model = keras.models.load_model('rzhang_model5.h5')
+    model = rzhang_model.build_model()
+    # model = keras.models.load_model('rzhang_model5.h5')
 
     # On bhat's google instance
     train_dir_path = '/home/adithya_bhatp/images/nature_hilly/train'
@@ -34,8 +34,9 @@ if __name__ == '__main__':
     for i in range(NUM_EPOCHS):
         # model.fit(l_channel, one_hot_ab, batch_size = 32, epochs = 5, verbose = 1) - # srini 20170426
         # Can also give validation data here
-        model.fit(train_l_channel, train_one_hot_ab, batch_size=32, epochs=1, verbose=1, initial_epoch=i, shuffle=True)
-        model.save('rzhang_model{0}.h5'.format(i + 6))
+        model.fit(train_l_channel, train_one_hot_ab, batch_size=32, epochs=1, verbose=1, shuffle=True)
+        if i % 5 == 0:
+            model.save('rzhang_model{0}.h5'.format(i))
 
 
     # # Load Test Data

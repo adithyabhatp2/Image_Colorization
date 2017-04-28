@@ -88,7 +88,7 @@ def encode_ab(ab_channels):
     img_height = ab_channels.shape[1]
     img_width = ab_channels.shape[2]
 
-    one_hot = np.zeros((num_images, img_height, img_width, NUM_BINS * NUM_BINS))
+    one_hot = np.zeros((num_images, img_height, img_width, NUM_BINS * NUM_BINS), dtype = np.bool)
 
     ab_bin_freqs = np.zeros(NUM_BINS * NUM_BINS, dtype=np.float64)
 
